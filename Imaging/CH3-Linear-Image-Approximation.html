@@ -1,0 +1,1435 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration of Images in a Stack &#8212; MSE672: Introduction to TEM Spring 2021 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<p><strong>Chapter 2:</strong><a class="reference external" href="Ch3-Imaging.ipynb">Imaging</a></p>
+<hr style="height:1px;border-top:4px solid #FF8200" /><div class="section" id="Registration-of-Images-in-a-Stack">
+<h1>Registration of Images in a Stack<a class="headerlink" href="#Registration-of-Images-in-a-Stack" title="Permalink to this headline">¶</a></h1>
+<p>part of</p>
+<p><a class="reference external" href="_Analysis_of_Transmission_Electron_Microscope_Data.ipynb">Analysis of Transmission Electron Microscope Data</a></p>
+<p>by Gerd Duscher, 2019</p>
+<p>Microscopy Facilities Joint Institute of Advanced Materials The University of Tennessee, Knoxville</p>
+<p>Model based analysis and quantification of data acquired with transmission electron microscopes</p>
+<div class="section" id="First-we-import-the-usual-libraries">
+<h2>First we import the usual libraries<a class="headerlink" href="#First-we-import-the-usual-libraries" title="Permalink to this headline">¶</a></h2>
+<p>Please visit the section for <a class="reference external" href="Ch1-Prerequesites.ipynb#TEM_Library">pyTEMlib</a> of the <a class="reference external" href="Ch1-Prerequesites.ipynb">Prerequesites</a> section for information of necessary packages.</p>
+<p>You’ll need at least pyTEMlib version 0.7.2019.0</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span># import matplotlib and numpy
+#                       use &quot;inline&quot; instead of &quot;notebook&quot; for non-interactive plots
+%pylab --no-import-all widget
+
+import scipy.constants
+
+# Import libraries from the book
+import pyTEMlib
+import pyTEMlib.KinsCat as ks
+
+# For archiving reasons it is a good idea to print the version numbers out at this point
+print(&#39;pyTEM version: &#39;,pyTEMlib.__version__)
+
+__notebook__ = &#39;2_Image_Registration&#39;
+__notebook_version__ = &#39;2020_06_27&#39;
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Populating the interactive namespace from numpy and matplotlib
+Using KinsCat library version  0.5  by G.Duscher
+spglib not installed; Symmetry functions of spglib disabled
+pyTEM version:  0.2021.02.22
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+C:\Users\gduscher\Anaconda3\lib\site-packages\pyUSID\viz\__init__.py:16: FutureWarning: Please use sidpy.viz.plot_utils instead of pyUSID.viz.plot_utils. pyUSID.plot_utils will be removed in a future release of pyUSID
+  warn(&#39;Please use sidpy.viz.plot_utils instead of pyUSID.viz.plot_utils. &#39;
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Projected-Potential-from-Parametrization-of-Atomic-Form-Factor">
+<h2>Projected Potential from Parametrization of Atomic Form Factor<a class="headerlink" href="#Projected-Potential-from-Parametrization-of-Atomic-Form-Factor" title="Permalink to this headline">¶</a></h2>
+<p>Following Kirkland (2:math:<cite>^nd</cite> edition Appendix C page 252), the atom potential is with <span class="math notranslate nohighlight">\(r^2 = x^2+z^2+z^2\)</span> and <span class="math notranslate nohighlight">\(V(x,y,z) =V(\vec{r})\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+v(x, y, z) &amp;=&amp;  2 \pi a_0 e_0 \int f_e(q) \exp \left( -2 \pi i \vec{q} \vec{r}  \right)  d^3r \\
+&amp;=&amp; 2 \pi^2 a_0 e_0 \sum_i \frac{a_i}{r} \exp \left( -2 \pi r  \sqrt{b_i} \right) + 2\pi^{5/2} a_0 e_0 \sum_i c_i d_i^{-3/2} \exp \left(\frac{-\pi^2 r^2}{d_i} \right)
+\end{eqnarray}\end{split}\]</div>
+<p>with <span class="math notranslate nohighlight">\(r^2 = x^2+z^2+z^2\)</span></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">projected</span> <span class="pre">potential</span></code> is then:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{eqnarray}
+v_z(x,y) &amp;=&amp; \int_{-\inf}^{\inf} V(x,y,z) dz \\
+&amp;=&amp; 4 \pi^2 a_0 e_0 \sum_i a_i K_0 \left( 2 \pi r \sqrt{b_i} \right)
++ 2 \pi^2 a_0 e_0 \sum_i \frac{c_i}{d_i} \exp \left( \frac{-\pi^2 r^2}{d_i} \right)\\
+&amp;=&amp; 2 \pi^2 a_0 e_0 \left[2 \sum_i a_i K_0 \left( 2 \pi r \sqrt{b_i} \right)
++\sum_i \frac{c_i}{d_i} \exp \left( \frac{-\pi^2 r^2}{d_i} \right) \right]
+\end{eqnarray}\end{split}\]</div>
+<p>with $ r^2 = x^2 + y^2$, we need to calculate the 1D potential only, dueto the radial symmetry of atoms.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">spherical</span> <span class="pre">Bessel</span> <span class="pre">function</span></code> is providedby the <code class="docutils literal notranslate"><span class="pre">scipy</span></code> special package.</p>
+<p>We will use the last of the equations in our calculation</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>import scipy.special
+
+def potential_1D(element, r, dx):
+    # atomic_number.append(electronFF[tags[&#39;elements&#39;][i]][&#39;Z&#39;])
+    a0 = scipy.constants.value(&#39;Bohr radius&#39;) * 1e10
+    e0 = scipy.constants.elementary_charge
+    dx = dx * 10
+    r = r * 10
+
+    pre_factor = 2 * np.pi ** 2 * a0 * e0
+
+    param = ks.electronFF[element]  # parametrized form factors
+    fL = r*0  # Lorentzian term
+    fG = r*0  # Gaussian term
+    for i in range(3):
+        fL += param[&#39;fa&#39;][i] * scipy.special.k0(2 * np.pi * r * np.sqrt(param[&#39;fb&#39;][i]))
+        fG += param[&#39;fc&#39;][i] / param[&#39;fd&#39;][i] * np.exp(-np.pi**2 * r**2 / param[&#39;fd&#39;][i])
+
+
+    return pre_factor * (2 * fL + fG)
+
+</pre></div>
+</div>
+</div>
+<div class="section" id="Plot-quarter-of-projected-atom-potential">
+<h3>Plot quarter of projected atom potential<a class="headerlink" href="#Plot-quarter-of-projected-atom-potential" title="Permalink to this headline">¶</a></h3>
+<p>We now use this function to plot a projected atom potential up in a 1nm by 1nm image.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>pixel_size = 0.01
+
+
+a_nx = a_ny = int(1/pixel_size)
+x,y = np.mgrid[0:a_nx, 0:a_ny] * pixel_size
+
+r = x**2+y**2
+r[r&lt;pixel_size] = pixel_size/4
+atom_potential = potential_1D(&#39;Si&#39;, r, 0.02)
+
+plt.figure()
+plt.imshow(np.log(atom_potential), extent=[0,a_nx*pixel_size,a_ny*pixel_size,0])
+plt.xlabel(&#39;distance (nm)&#39;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "24e358b8fe6b45d6bb96a9452b335fcf", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0.5, 0, &#39;distance (nm)&#39;)
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Plot-full-projected-atom-potential">
+<h3>Plot full projected atom potential<a class="headerlink" href="#Plot-full-projected-atom-potential" title="Permalink to this headline">¶</a></h3>
+<p>Now, that we have a quarter of the atom potential, we make the round one.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>atom_potential_round = np.zeros([2*a_nx, 2*a_ny])
+atom_potential_round[a_nx:,a_ny:] = atom_potential
+atom_potential_round[a_nx:,:a_ny] = np.flip(atom_potential, axis=1)
+atom_potential_round[:a_nx,a_ny:] = np.flip(atom_potential, axis=0)
+atom_potential_round[:a_nx,:a_ny] = np.flip(np.flip(atom_potential, axis=0), axis=1)
+plt.figure()
+plt.imshow(np.log(atom_potential_round), extent=[0,2*a_nx*pixel_size,2*a_ny*pixel_size,0])
+plt.xlabel(&#39;distance (nm)&#39;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "9d9fd152dff24a309c7b385dc4ef32a7", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0.5, 0, &#39;distance (nm)&#39;)
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Embedd-atoms-in-images">
+<h3>Embedd atoms in images<a class="headerlink" href="#Embedd-atoms-in-images" title="Permalink to this headline">¶</a></h3>
+<p>We place the atom in the corner of a matrix with the same size as the image to be simulated.</p>
+<p>With the numpy roll function we now can move this atom wherever we want.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>nx = ny =  512
+
+atom_potential_corner = np.zeros([nx,ny])
+
+atom_potential_corner[0:a_nx, 0:a_ny] = atom_potential
+atom_potential_corner[nx-a_nx:,0:a_ny] = np.flip(atom_potential, axis=0)
+atom_potential_corner[0:a_nx,ny-a_ny:] = np.flip(atom_potential, axis=1)
+atom_potential_corner[nx-a_nx:,ny-a_ny:] = np.flip(np.flip(atom_potential, axis=0), axis=1)
+
+
+plt.figure()
+plt.imshow(np.roll(atom_potential_corner, shift = [50,50], axis = [0,1]))
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "07d20ef35ca744479aab23195c240304", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.image.AxesImage at 0x1f208ab7190&gt;
+</pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="Projected-Potential-of-Supercell">
+<h2>Projected Potential of Supercell<a class="headerlink" href="#Projected-Potential-of-Supercell" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>potential_unit_cell = np.zeros([nx,ny])
+atom_potential_corner = np.zeros([nx,ny])
+
+potential = np.zeros([nx,ny])
+
+atom_potential_corner[0:a_nx, 0:a_ny] = atom_potential
+atom_potential_corner[nx-a_nx:,0:a_ny] = np.flip(atom_potential, axis=0)
+atom_potential_corner[0:a_nx,ny-a_ny:] = np.flip(atom_potential, axis=1)
+atom_potential_corner[nx-a_nx:,ny-a_ny:] = np.flip(np.flip(atom_potential, axis=0), axis=1)
+
+
+unit_cell_base = np.array([[0.0, 0.0] , [0.5,0.5] ])*nx/8
+unit_cell_base = np.array(unit_cell_base, dtype= int)
+for pos in unit_cell_base:
+    potential_unit_cell = potential_unit_cell + np.roll(atom_potential_corner, shift = pos, axis = [0,1])
+    print(pos)
+
+for i in range(8):
+    for j in range(8):
+        potential = potential + np.roll(potential_unit_cell, shift = [i*64,j*64], axis = [0,1])
+print(64*0.02)
+print(potential.max())
+plt.figure()
+plt.imshow((potential) )
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[0 0]
+[32 32]
+1.28
+1.0222392829586504e-17
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ea56aa07797b4582b5e38a715f91610d", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.image.AxesImage at 0x1f208b231f0&gt;
+</pre></div></div>
+</div>
+<div class="section" id="All-together-in-a-function">
+<h3>All together in a function<a class="headerlink" href="#All-together-in-a-function" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>def potential_2D(element, nx, ny, n_cell_x, n_cell_y, lattice_parameter, base):
+    n_cell_x = int(2**np.log2(n_cell_x))
+    n_cell_y = int(2**np.log2(n_cell_y))
+
+    pixel_size = lattice_parameter/(nx/n_cell_x)
+
+    a_nx = a_ny = int(1/pixel_size)
+    x,y = np.mgrid[0:a_nx, 0:a_ny] * pixel_size
+    a = int(nx/n_cell_x)
+    r = x**2+y**2
+    r[r&lt;pixel_size] = pixel_size/4
+    atom_potential = potential_1D(element, r, 0.02)
+
+    potential = np.zeros([nx,ny])
+
+    atom_potential_corner = np.zeros([nx,ny])
+    atom_potential_corner[0:a_nx, 0:a_ny] = atom_potential
+    atom_potential_corner[nx-a_nx:,0:a_ny] = np.flip(atom_potential, axis=0)
+    atom_potential_corner[0:a_nx,ny-a_ny:] = np.flip(atom_potential, axis=1)
+    atom_potential_corner[nx-a_nx:,ny-a_ny:] = np.flip(np.flip(atom_potential, axis=0), axis=1)
+
+    unit_cell_base = np.array(base)*a
+    unit_cell_base = np.array(unit_cell_base, dtype= int)
+
+
+    for pos in unit_cell_base:
+        potential = potential + np.roll(atom_potential_corner, shift=np.array(pos), axis = [0,1])
+
+    for column in range(int(np.log2(n_cell_x))):
+        potential = potential + np.roll(potential, shift = 2**column * a, axis = 1)
+    for row in range(int(np.log2(n_cell_y))):
+        potential = potential + np.roll(potential, shift = 2**row * a, axis = 0)
+
+    return potential
+
+nx = ny = 512
+n_cell_x = 16
+a = 0.28
+
+potential = potential_2D(&#39;Si&#39;, nx, nx, n_cell_x, n_cell_x, a, [[0,0], [0.5,0.5]])
+pixel_size = a/(nx/n_cell_x)
+plt.figure()
+plt.imshow((potential), extent=[0,nx*pixel_size, ny*pixel_size, 0 ])
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "88021bde6d1542cf9e3d7673bf2f14f1", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.image.AxesImage at 0x1f21d5b3130&gt;
+</pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="Transmission-Function-for-Very-Thin-Specimen">
+<h2>Transmission Function for Very Thin Specimen<a class="headerlink" href="#Transmission-Function-for-Very-Thin-Specimen" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">For a very thin specimen the <code class="docutils literal notranslate"><span class="pre">weak</span> <span class="pre">phase</span> <span class="pre">approximation</span></code> is the simples way to calculate a high resolution (phase contrast) image.</div>
+<div class="line">In that approximation, the sample causes only a phase change to the incident plane wave.</div>
+</div>
+<p>To retrieve the exit we just multiply the transmission function <span class="math notranslate nohighlight">\(t(\vec{x})\)</span> with the plane wave <span class="math notranslate nohighlight">\(\exp (2\pi i k_z z)\)</span></p>
+<div class="math notranslate nohighlight">
+\[\Psi_t(\vec{x}) = t(\vec{x}) \exp \left(2 \pi i k_z z \right) \approx t(\vec{x})\]</div>
+<p>The specimen transmission function depends on the projected potential <span class="math notranslate nohighlight">\(v_z(\vec{x})\)</span> and the interaction parameter <span class="math notranslate nohighlight">\(\sigma\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[t(\vec{x}) =  \exp \left( i \sigma v_z(\vec{x})\right)\]</div>
+<p>with the interaction parameter <span class="math notranslate nohighlight">\(\sigma\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\sigma = \frac{2 \pi}{\lambda V} \left(  \frac{m_0 c^2 + eV}{2m_0c^2+eV} \right) = \frac{2 \pi m  e_0 \lambda}{h^2}\]</div>
+<p>with $ m = <span class="math">\gamma `m_0$ and :math:`eV</span> the incident electron energy.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>def interaction_parameter(acceleration_voltage):
+    &quot;&quot;&quot;Calculates interaction parameter sigma
+
+    Parameter
+    ---------
+    acceleration_voltage: float
+        acceleration voltage in volt
+
+    Returns
+    -------
+    interaction parameter: float
+        interaction parameter (dimensionless)
+    &quot;&quot;&quot;
+    V = acceleration_voltage # in eV
+    E0 = 510998.95 #  m_0 c^2 in eV
+
+    wavelength = ks.get_wavelength(acceleration_voltage)
+    E = acceleration_voltage
+
+    return 2*np.pi/ (wavelength * E)  *(E0 + E)/(2*E0+E)
+
+
+potential = np.array(potential, dtype=complex)
+
+def transmission(sigma, potential):
+
+    return np.exp(1j*sigma* potential)
+
+acceleration_voltage = 20000
+sigma = interaction_parameter(acceleration_voltage)
+t = transmission(sigma, potential)
+
+print(t.shape)
+
+plt.figure()
+plt.imshow(t.imag)
+
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(512, 512)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "ba50107f9c9944a0841e922c7ea2d7aa", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.image.AxesImage at 0x1f21d3513a0&gt;
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Aberration-Function">
+<h2>Aberration Function<a class="headerlink" href="#Aberration-Function" title="Permalink to this headline">¶</a></h2>
+<p>The aberration function <span class="math notranslate nohighlight">\(chi(\vec{k})\)</span> is defined in reciprocal space.</p>
+<p>For the calculation of <span class="math notranslate nohighlight">\(chi\)</span> we use the angles instead of reciprocal distances.</p>
+<p>We came accross the aberration function before in the <a class="reference external" href="CH3-CTF.ipynb">contrast transfer function notebook</a>.</p>
+<p>Please look up how we determined the different Scherzer foci in <a class="reference external" href="CH3-CTF.ipynb">contrast transfer function notebook</a>. The contrast transfer function (CTF) is just the radial average of the aberration function if all aberrations are zero except defocus (C10) and spherical aberration (C30).</p>
+<p>The objective lens function (or point spread function of the eletron microscope) <span class="math notranslate nohighlight">\(H_0(\vec{k})\)</span> is defined as:</p>
+<div class="math notranslate nohighlight">
+\[H_0(\vec{k}) = \sin \left(\chi(\vec{k})\right)\]</div>
+<p>an oscillating function and at the origin of problems in electron microscopy.</p>
+<p>In the TEM a Fourier transform of an image of an thin amorphous material will look similar (with noise) to the object function below. Compare those diffractograms with differnt defoci with those of our simulation.</p>
+<p>Check out what the astigmatism (C12a or C12b) does to the object function.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>def make_chi(theta, phi, wavelength, ab):
+    &quot;&quot;&quot;Calculate aberration function chi
+
+    Input:
+    ------
+    theta, phi: numpay array (n x m)
+        angle meshes of the reciprocal space
+    wavelength: float
+        wavelength in nm
+    ab: dict
+        aberrations in nm should at least contain defocus (C10), and spherical abeeration (C30)
+
+    Returns:
+    --------
+    chi: numpy array (nxm)
+        aberration function
+    &quot;&quot;&quot;
+    if &#39;C10&#39; not in ab:
+        ab[&#39;C10&#39;] = 0.
+    if &#39;C12a&#39; not in ab:
+        ab[&#39;C12a&#39;] = 0.
+    if &#39;C12b&#39; not in ab:
+        ab[&#39;C12b&#39;] = 0.
+    # defocus and astigmatism
+    t1 = np.power(theta, 2)/2 * (ab[&#39;C10&#39;]  + ab[&#39;C12a&#39;] * np.cos(2 * phi) + ab[&#39;C12b&#39;] * np.sin(2 * phi))
+
+
+    # coma and three fold astigmatism
+    if &#39;C21a&#39; in ab and &#39;C21b&#39; in ab and &#39;C23a&#39; in ab and &#39;C23b&#39; in ab:
+        t2 = np.power(theta, 3)/3 * (ab[&#39;C21a&#39;] * np.cos(1*phi) + ab[&#39;C21b&#39;] * np.sin(1*phi))
+    else:
+        t2 = theta*0.
+    # spherical aberration
+    if &#39;C30&#39; not in ab:
+        ab[&#39;C30&#39;] = 0.
+    t3 = np.power(theta, 4)/4 * ab[&#39;C30&#39;]
+
+    chi = t1 + t2+ t3
+    return chi * 2 * np.pi / wavelength  # np.power(theta,6)/6*(  ab[&#39;C50&#39;] )
+
+def objective_lens_function(ab, nx, ny, field_of_view, wavelength, aperture_size=10):
+    &quot;&quot;&quot;Objective len function to be convoluted with exit wave to derive image function
+
+    Input:
+    ab: dict
+        aberrations in nm should at least contain defocus (C10), and spherical abeeration (C30)
+    nx: int
+        number of pixel in x direction
+    ny: int
+        number of pixel in y direction
+    field_of_view: float
+        field of fiew of potential
+    wavelength: float
+        wavelength in nm
+    aperture_size: float
+        aperture size in 1/nm
+
+    Returns:
+    --------
+    object function: numpy array (nx x ny)
+    extent: list
+    &quot;&quot;&quot;
+
+    # Reciprocal plane in 1/nm
+    dk = 1 / field_of_view
+    t_xv, t_yv = np.mgrid[int(-nx/2):int(nx/2),int(-ny/2):int(ny/2)] *dk
+
+    # define reciprocal plane in angles
+    phi = np.arctan2(t_yv, t_xv)
+    theta = np.arctan2(np.sqrt(t_xv**2 + t_yv**2), 1/wavelength)
+
+    mask = theta &lt; aperture_size * wavelength
+
+    # calculate chi
+    chi = make_chi(theta, phi, wavelength, ab)
+
+    extent = [-nx/2*dk, nx/2*dk, -nx/2*dk,nx/2*dk]
+    return np.sin(chi)*mask, extent
+
+acceleration_voltage = 200000
+ab={&#39;C10&#39;:-84.0, &#39;C12a&#39;:0.0, &#39;C12b&#39;:0.0, &#39;C30&#39;: 2.2*1e6} # aberrations in nm
+
+wavelength = ks.get_wavelength(acceleration_voltage)
+
+objective_lens, extent = objective_lens_function(ab, nx, nx, nx*pixel_size, wavelength, 1/.18)
+plt.figure()
+plt.imshow(objective_lens, extent=extent)
+plt.xlabel(&#39;reciprocal distance (1/nm)&#39;)
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "b46a6d8460f64deab8b40bcb7d75e477", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0.5, 0, &#39;reciprocal distance (1/nm)&#39;)
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Image-Simulation-in-Weak-Phase-Approximation">
+<h2>Image Simulation in Weak Phase Approximation<a class="headerlink" href="#Image-Simulation-in-Weak-Phase-Approximation" title="Permalink to this headline">¶</a></h2>
+<p>In the weak phase approximation the image is just the convoltuion of the transmission function and the objective lens funtion.</p>
+<p>If an aperture selects only the inner smooth part of the objetive function in Scherzer defocus, the image is naively to interpret as the dark parts as the atoms (remember the CTF is negative in that case)</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>image = np.fft.ifft2((np.fft.fft2(t))*np.fft.fftshift(objective_lens))
+plt.figure()
+plt.imshow(np.abs(image*np.conjugate(image)))
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "fb42f7066531411f9b768eaea9851b6c", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.image.AxesImage at 0x1f21ad99160&gt;
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Influence-of-Aberrations-on-Image">
+<h2>Influence of Aberrations on Image<a class="headerlink" href="#Influence-of-Aberrations-on-Image" title="Permalink to this headline">¶</a></h2>
+<p>Within this weak phase object aberration, we can already investigate the influence of lens aberrations on the image.</p>
+<p>We do now all steps together and check the effect of the aberration, acceleration voltage, aperture, and element onto the final image (in weak phase approximation).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>nx = ny = 1024
+n_cell_x = 16
+a = 0.28
+acceleration_voltage = 200000
+resolution = 0.1
+ab={&#39;C10&#39;:-188.0, &#39;C12a&#39;: 00.0, &#39;C12b&#39;:0.0, &#39;C30&#39;: 2.2*1e6} # aberrations in nm
+
+potential = potential_2D(&#39;Au&#39;, nx, nx, n_cell_x, n_cell_x, a, [[0,0], [0.5,0.5]])
+pixel_size = a/(nx/n_cell_x)
+
+sigma = interaction_parameter(acceleration_voltage)
+t = transmission(sigma, potential)
+
+wavelength = ks.get_wavelength(acceleration_voltage)
+
+objective_lens, extent_r = objective_lens_function(ab, nx, nx, nx*pixel_size, wavelength, 1/resolution)
+
+image = np.fft.ifft2((np.fft.fft2(t))*np.fft.fftshift(objective_lens))
+image = np.abs(image*np.conjugate(image))
+
+plt.close(&#39;all&#39;)
+fig, ax = plt.subplots(1, 2, figsize=(8, 4))
+
+ax[0].imshow(objective_lens, extent=extent_r)
+ax[0].set_xlabel(&#39;reciprocal distance (1/nm)&#39;)
+ax[0].set_xlim(-10,10)
+ax[0].set_ylim(-10,10)
+
+ax[1].imshow(image, extent=[0,nx*pixel_size, ny*pixel_size, 0 ])
+ax[1].set_xlabel(&#39;distance (nm)&#39;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "1ba980fc9ec9415dbc2021e84dd22573", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[69]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0.5, 0, &#39;distance (nm)&#39;)
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Summary">
+<h2>Summary<a class="headerlink" href="#Summary" title="Permalink to this headline">¶</a></h2>
+<p>The weak phase object allows for a fast check on image parameters. For a quantitative image simulation we need to do dynamic scattering theory. Please go to the <a class="reference external" href="CH3-multislice.ipynb">Multislice notebook</a></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span># Calculating the total 2D potentials for each layer
+
+def DefPot2DLayer(PixImageSize, ImageRange, NLayers, MatLattice, UnitCellPot2D, dx):
+    Mat2D = MatLattice[:2,:2]
+    Mat2DInv = np.linalg.inv(Mat2D)
+    dnx = int(round(np.linalg.norm(Mat2D[0])/(dx)))
+    dny = int(round(np.linalg.norm(Mat2D[0])/(dx)))
+    nx = np.linspace(0, 1, dnx, endpoint=False)
+    ny = np.linspace(0, 1, dny, endpoint=False)
+
+    Pot2DLayer = np.array([[[0.  \
+        for i in range(PixImageSize[0])] for j in range(PixImageSize[1])]  for k in range(NLayers)])
+
+
+    for i in range(NLayers): # Layers loop
+        Pot2DInter = interp2d(ny, nx, UnitCellPot2D[i])
+        for ScanY in range(PixImageSize[1]):
+            for ScanX in range(PixImageSize[0]):
+                xi = dx * np.array([ScanX - round(PixImageSize[0]/2.), \
+                    ScanY - round(PixImageSize[1]/2.)], dtype=float)\
+                    + np.array([ImageRange[0], ImageRange[2]])
+                ni = np.dot(xi, Mat2DInv)%np.array([1,1])  # Real to Direct within 1 unit cell
+                Pot2DLayer[i, ScanY, ScanX] = Pot2DInter(ni[1], ni[0])[0]
+    del Mat2DInv, dnx, dny, nx, ny, i, ScanX, ScanY, xi, ni
+    return Pot2DLayer
+
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>PixImageSize = [30,30]
+NLayers = 10
+Pot2DLayer = np.array([[[0.  \
+        for i in range(PixImageSize[0])] for j in range(PixImageSize[1])]  for k in range(NLayers)])
+print(Pot2DLayer.shape)
+
+plt.figure()
+plt.imshow(Pot2DLayer.sum(axis=0))
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(10, 30, 30)
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<script type="application/vnd.jupyter.widget-view+json">{"model_id": "bf45a49c8fa741329bbb99a54d0bd6cb", "version_major": 2, "version_minor": 0}</script></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.image.AxesImage at 0x1f216ec9820&gt;
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>for ScanY in range(ScanYsize):
+    print(&#39;line: &#39;,ScanY,&#39; of &#39;,PixImageSize[1] - ProSize)
+    for ScanX  in range(ScanXsize):
+        Phi_trans = Probe
+        for NThickness in range(1, NLevels * NLayers+1):  # NLevels depending of thickness
+                if NThickness%(NLayers)  == 0:
+                        CountLayer = NLayers-1
+                else:
+                        CountLayer = NThickness%(NLayers)-1
+                Phi_trans = Trans2D[CountLayer, ScanY : ProSize + ScanY,\
+                                                ScanX :ProSize + ScanX] * Phi_trans # real
+                Phi_trans = np.fft.fftshift(Phi_trans)
+                tp1 = fftpack.fft2(Phi_trans) # real to reciprocal
+                tp1 = fftpack.ifft2(Projector2DK[CountLayer] * tp1) #reciprocal to real
+                Phi_trans = np.fft.ifftshift(tp1)
+                #Phi_trans[antialising] = 0.
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-22-672c58567d11&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span><span class="ansi-green-intense-fg ansi-bold">for</span> ScanY <span class="ansi-green-intense-fg ansi-bold">in</span> range<span class="ansi-yellow-intense-fg ansi-bold">(</span>ScanYsize<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">      2</span>     print<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#39;line: &#39;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span>ScanY<span class="ansi-yellow-intense-fg ansi-bold">,</span><span class="ansi-blue-intense-fg ansi-bold">&#39; of &#39;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span>PixImageSize<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">1</span><span class="ansi-yellow-intense-fg ansi-bold">]</span> <span class="ansi-yellow-intense-fg ansi-bold">-</span> ProSize<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">      3</span>     <span class="ansi-green-intense-fg ansi-bold">for</span> ScanX  <span class="ansi-green-intense-fg ansi-bold">in</span> range<span class="ansi-yellow-intense-fg ansi-bold">(</span>ScanXsize<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">      4</span>         Phi_trans <span class="ansi-yellow-intense-fg ansi-bold">=</span> Probe
+<span class="ansi-green-fg">      5</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> NThickness <span class="ansi-green-intense-fg ansi-bold">in</span> range<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-cyan-intense-fg ansi-bold">1</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> NLevels <span class="ansi-yellow-intense-fg ansi-bold">*</span> NLayers<span class="ansi-yellow-intense-fg ansi-bold">+</span><span class="ansi-cyan-intense-fg ansi-bold">1</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>  <span class="ansi-red-intense-fg ansi-bold"># NLevels depending of thickness</span>
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;ScanYsize&#39; is not defined
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>def DefPro2DK(ProPixelSize, deltaZ, NLayers, wavl, dk):
+    Projector2DK = np.array([[[0.  \
+           for i in range(ProPixelSize)] for j in range(ProPixelSize)]  for k in range(NLayers)], dtype=complex)
+
+    tp1 = np.array([[[-dk*ProPixelSize/2 + dk*i,-dk*ProPixelSize/2 + dk*j]  \
+           for i in range(ProPixelSize)] for j in range(ProPixelSize)])
+    tp2 = np.apply_along_axis(np.linalg.norm, 2, tp1)
+    tp1 = tp2 * tp2
+
+    for i in range(NLayers):
+        Projector2DK[i] = np.vectorize(complex)(np.cos(tp1*deltaZ[i]*np.pi*wavl),\
+                            np.sin(tp1*deltaZ[i]*np.pi*wavl))
+    del tp1, tp2
+    return Projector2DK
+
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>ProPixelSize = 8
+dk = .1
+tp1 = np.array([[[-dk*ProPixelSize/2 + dk*i,-dk*ProPixelSize/2 + dk*j]  \
+           for i in range(ProPixelSize)] for j in range(ProPixelSize)])
+print(tp1[:,:,0])
+
+tp2 = np.apply_along_axis(np.linalg.norm, 2, tp1)
+print(tp2)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[-0.4 -0.3 -0.2 -0.1  0.   0.1  0.2  0.3]
+ [-0.4 -0.3 -0.2 -0.1  0.   0.1  0.2  0.3]
+ [-0.4 -0.3 -0.2 -0.1  0.   0.1  0.2  0.3]
+ [-0.4 -0.3 -0.2 -0.1  0.   0.1  0.2  0.3]
+ [-0.4 -0.3 -0.2 -0.1  0.   0.1  0.2  0.3]
+ [-0.4 -0.3 -0.2 -0.1  0.   0.1  0.2  0.3]
+ [-0.4 -0.3 -0.2 -0.1  0.   0.1  0.2  0.3]
+ [-0.4 -0.3 -0.2 -0.1  0.   0.1  0.2  0.3]]
+[[0.56568542 0.5        0.4472136  0.41231056 0.4        0.41231056
+  0.4472136  0.5       ]
+ [0.5        0.42426407 0.36055513 0.31622777 0.3        0.31622777
+  0.36055513 0.42426407]
+ [0.4472136  0.36055513 0.28284271 0.2236068  0.2        0.2236068
+  0.28284271 0.36055513]
+ [0.41231056 0.31622777 0.2236068  0.14142136 0.1        0.14142136
+  0.2236068  0.31622777]
+ [0.4        0.3        0.2        0.1        0.         0.1
+  0.2        0.3       ]
+ [0.41231056 0.31622777 0.2236068  0.14142136 0.1        0.14142136
+  0.2236068  0.31622777]
+ [0.4472136  0.36055513 0.28284271 0.2236068  0.2        0.2236068
+  0.28284271 0.36055513]
+ [0.5        0.42426407 0.36055513 0.31622777 0.3        0.31622777
+  0.36055513 0.42426407]]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>def SimClick(self):
+        ctags = self.parent.tags[&#39;Sim&#39;]
+        sim = ctags
+
+        MatLattice = ctags[&#39;JCI&#39;][&#39;MatLattice&#39;]
+        CoordinatesList = ctags[&#39;JCI&#39;][&#39;CoordinatesList&#39;]
+        Layers = ctags[&#39;JCI&#39;][&#39;Layers&#39;]
+        AtomsZLay = ctags[&#39;JCI&#39;][&#39;AtomsZLay&#39;]
+        NLayers = ctags[&#39;JCI&#39;][&#39;NLayers&#39;]
+
+
+
+        today = time.strftime(&quot;%Y-%m-%d_%H-%M&quot;)
+        start = time.time()
+
+        # Loading the experiment, checking variable sanity &amp; assigning default values
+        #OnlyCheck, OnlyProbe, Channeling  = sanitycalculations()
+        OnlyCheck = sim[&#39;OnlyCheck&#39;]
+        OnlyProbe = sim[&#39;OnlyProbe&#39;]
+        Channeling = sim[&#39;Channeling&#39;]
+
+
+        #ApAngle, Detectors, DetShift, V0, aberrations, OAM_value = sanityoptics()
+        ApAngle = sim[&#39;ApAngle&#39;]
+        Detectors = sim[&#39;Detectors&#39;]
+        DetShift = sim[&#39;DetShift&#39;]
+        V0 = sim[&#39;V0&#39;]
+        aberrations = sim[&#39;aberrations&#39;]
+        OAM_value = sim[&#39;OAM_value&#39;]
+
+        # Aberrations:
+        ab = sim[&#39;Aberrations&#39;]
+        aberrations[0] = ab[&#39;C10&#39;]  #,&quot;\tDefocus in nm.&quot;)
+
+        aberrations[3] = ab[&#39;C12a&#39;] #= aberrations[3]#,&quot;\t2-fold astigmatism a direction in nm.&quot;)
+        aberrations[4] = ab[&#39;C12b&#39;] #= aberrations[4]#,&quot;\t2-fold astigmatism b direction in nm.&quot;)
+        aberrations[5] = ab[&#39;C21a&#39;] #= aberrations[5]#,&quot;\tComma a direction in nm.&quot;)
+        aberrations[6] = ab[&#39;C21b&#39;] #= aberrations[6]#,&quot;\tComma b direction in nm.&quot;)
+        aberrations[7] = ab[&#39;C23a&#39;] #= aberrations[7]#,&quot;\t3-fold astigmatism a direction in nm.&quot;)
+        aberrations[8] = ab[&#39;C23b&#39;] #= aberrations[8]#,&quot;\t3-fold astigmatism b direction in nm.&quot;)
+
+        aberrations[9] = ab[&#39;C30&#39;] #= aberrations[9]#,&quot;\tThird order aberration (C_s) in nm.&quot;)
+        aberrations[10] = ab[&#39;C32a&#39;] #= aberrations[10]
+        aberrations[11] = ab[&#39;C32b&#39;] #= aberrations[11]
+        aberrations[12] = ab[&#39;C34a&#39;] #= aberrations[12]
+        aberrations[13] = ab[&#39;C34b&#39;] #= aberrations[13]
+
+        aberrations[14] = ab[&#39;C41a&#39;] #= aberrations[14]#,&quot;\tFourth order aberration in nm.&quot;)
+        aberrations[15] = ab[&#39;C43a&#39;] #= aberrations[15]
+        aberrations[16] = ab[&#39;C45a&#39;] #= aberrations[16]
+        aberrations[17] = ab[&#39;C50&#39;] #= aberrations[17]#/1000000,&quot;\tFifth order aberration in mm.&quot;)
+        aberrations[18] = ab[&#39;C70&#39;] #= aberrations[18]#/1000000,&quot;\tSeventh order aberration in mm.&quot;)
+
+
+        #FieldofView, ImgPixelsX, ImgPixelsY, Thickness     = sanityimaging()
+        FieldofView = sim[&#39;FieldofView&#39;]
+        ImgPixelsX = sim[&#39;ImgPixelsX&#39;]
+        ImgPixelsY = sim[&#39;ImgPixelsY&#39;]
+        Thickness = sim[&#39;Thickness&#39;]
+
+        #PlotAmpProbe, PlotAngProbe, SaveCell, SaveChaProbe, SavePot, PlotSTEM = sanityoutput()
+        PlotAmpProbe =sim[&#39;PlotAmpProbe&#39;]
+        PlotAngProbe =sim[&#39;PlotAngProbe&#39;]
+        SaveCell =sim[&#39;SaveCell&#39;]
+        SaveChaProbe = sim[&#39;SaveChaProbe&#39;]
+        SavePot = sim[&#39;SavePot&#39;]
+        PlotSTEM = sim[&#39;PlotSTEM&#39;]
+
+        #nmax, MaxOAM, Maxradius, ProPixelSize, PosProbChan, TransVect = sanitymisc()
+        nmax = sim[&#39;nmax&#39;]
+        MaxOAM = sim[&#39;MaxOAM&#39;]
+        Maxradius = sim[&#39;Maxradius&#39;]
+        ProPixelSize = sim[&#39;ProPixelSize&#39;]
+        PosProbChan = sim[&#39;PosProbChan&#39;]
+        TransVect = sim[&#39;TransVect&#39;]
+
+        deltaZ = DefdeltaZ(Layers, MatLattice) # Difference in z between layers
+
+        # Calculating the number of levels (i.e. how many times the unit cell repeats in Z)
+        NLevels = int(Thickness/MatLattice[2,2])
+        if NLevels == 0:
+                NLevels = 1
+
+        # Defining the variables for the imaging probe: dx, dk, kmax, xmax, dtheta, theta_max
+        theta_max = 250
+
+        # Antialiasing
+        theta_max = theta_max *3/2
+        # Defining the wavelength
+        wavl = lamb(V0)
+        # Some image variables
+        kmax = theta_max/(1000 * wavl)
+        dx = 1 / (2 * kmax)
+        xmax = ProPixelSize * dx
+        dk = 1/ xmax
+        dtheta = 1000 * dk * wavl
+
+        printout(today, OnlyCheck, OnlyProbe, Channeling, ApAngle, Detectors, V0, aberrations, OAM_value,\
+                MatLattice, CoordinatesList, AtomsZLay, deltaZ, NLevels, Thickness, dx, dk, dtheta,\
+                FieldofView, ImgPixelsX, ImgPixelsY, ProPixelSize)
+        ctags[&#39;FieldofView&#39;]=FieldofView
+        ctags[&#39;ImgPixelsX&#39;]=ImgPixelsX
+        ctags[&#39;ImgPixelsY&#39;]=ImgPixelsY
+        ctags[&#39;dx&#39;]=dx
+        ctags[&#39;dk&#39;]=dk
+        ctags[&#39;dtheta&#39;]=dtheta
+
+
+        if OnlyCheck == False:
+            print (&quot;Calculation(s) start now:&quot;)
+            print ()
+
+            mask_antialising = createmask(dtheta, ProPixelSize, max(Detectors), 0, DetShift)
+
+            # Generating the probe
+            print (&quot;\tCalculating the electron probe...&quot;)
+            Probe = createprobe(wavl, dtheta, ApAngle, ProPixelSize, aberrations, OAM_value)
+
+            probe = self.parent.ProbeDialog.probe.calProbe()
+            ctags[&#39;probe2&#39;] = Probe
+            Probe = probe
+
+            #Probe[mask_antialising] = 0. # Antialiasing the probe
+            tp1 = np.sum(Probe * np.conjugate(Probe))
+            Probe = Probe/np.sqrt(tp1)
+            ctags[&#39;Probe&#39;] = Probe
+
+            #Generates a plot of the 2D electron probe intensity &amp; phase (PNG)
+            plotProbe(Probe, dx, today, OnlyProbe, PlotAmpProbe, PlotAngProbe)
+
+            if OnlyProbe == False:
+
+                # Defining maximum number of pixels for the potentials and the range of the potentials in nm
+                # (xmin, xmax, ymin,ymax)
+                ImageRange, PixImageSize = ImageRange_ImageSize(MatLattice, ProPixelSize, dx)
+
+
+                if Channeling == True:
+                        PixImageSize = np.array([ProPixelSize, ProPixelSize])
+                        tp1 = np.dot(PosProbChan, MatLattice[:2,:2]) # Position probe in real space
+                        ImageRange = np.array([-dx * ProPixelSize/2. + tp1[0], 0., -dx * ProPixelSize/2. + tp1[1], 0.])
+
+                print (&quot;\tCalculating the scattering potentials...&quot;)
+                # Unit cell potential calculated taking into account atoms within up to &quot;nmax-1&quot; surrounding cells
+                # default value is nmax = 2
+                UnitCellPot2D = DefUnitCellPot2D(CoordinatesList, AtomsZLay, NLayers, MatLattice, dx, nmax)
+
+                # Calculating the total 2D potentials, transmission, and projector(k space) for each layer
+                Pot2DLayer = DefPot2DLayer(PixImageSize, ImageRange, NLayers, MatLattice, UnitCellPot2D, dx)
+                Trans2D = DefTrans2D(PixImageSize, NLayers, Pot2DLayer, sigma(V0))
+                Projector2DK = DefPro2DK(ProPixelSize, deltaZ, NLayers, wavl, dk)
+
+                for i in range(NLayers): # Masking the Projector2DK for antialising
+                        Projector2DK[i][mask_antialising] = 0.
+                        Projector2DK[i] = np.fft.fftshift(Projector2DK[i])
+
+                # Calculating the chaneling of the electron probe
+                if Channeling == True:
+                        print (&quot;\tCalculating the channeling of the e- probe through the sample.&quot;)
+                        print (&quot;\t\t(This might take some time, so please be patient!)&quot;)
+                        ChanneledProbe = createchannelling(Probe, Trans2D, Projector2DK, NLevels)
+                        saveChanneledProbe(ChanneledProbe, today, SaveChaProbe)
+                        if OAM_value != 0:
+                                print (&quot;\t\tCalculating the OAM of the e- probe.&quot;)
+                                print (&quot;\t\t(This might take some time, so please be patient!)&quot;)
+                                ChanneledProbeOAMChar = oam_evaluator(ChanneledProbe, MaxOAM, Maxradius, dx)
+                                saveProbeOAMChar(ChanneledProbeOAMChar, today)
+
+                # Calculating the STEM images with a multislice method
+                if Channeling == False:
+                        print (&quot;\tCalculating the STEM images...&quot;)
+                        print (&quot;\t\t(This might take some time, so please be patient!)&quot;)
+                        print(dtheta)
+
+                        CellSTEMImage,ronchi = multisliceSTEM(Probe, Trans2D, Projector2DK, Detectors, PixImageSize, NLevels, dtheta, DetShift)
+
+                        ctags[&#39;PixImageSize&#39;] = PixImageSize
+                        ctags[&#39;DetShift&#39;] = DetShift
+
+                        # Saves  the core STEM images in npy format
+                        saveCellSTEM(CellSTEMImage, today, SaveCell)
+                        # Generating the STEM images as requested by the experiment
+                        print (&quot;\tMultislice calculation is over!&quot;)
+                        print (&quot;\tNow pySTEM is generating the STEM images as requested by the experiment&quot;)
+                        STEMImages = createSTEMImages(CellSTEMImage, ImageRange, PixImageSize, FieldofView, ImgPixelsX,\
+                                                        ImgPixelsY, ProPixelSize, dx, MatLattice, TransVect)
+                        ctags[&#39;ScanXSize&#39;] = CellSTEMImage.shape[1]
+                        ctags[&#39;ScanYSize&#39;] = CellSTEMImage.shape[2]
+                        ctags[&#39;ImageRange&#39;] = ImageRange
+                        ctags[&#39;PixImageSize&#39;] = PixImageSize
+                        ctags[&#39;FieldofView&#39;] = FieldofView
+                        ctags[&#39;ImgPixelsX&#39;] = ImgPixelsX
+                        ctags[&#39;ImgPixelsY&#39;] = ImgPixelsY
+                        ctags[&#39;ProPixelSize&#39;] = ProPixelSize
+                        ctags[&#39;dx&#39;] = dx
+                        ctags[&#39;MatLattice&#39;] = MatLattice
+                        ctags[&#39;TransVect&#39;] = TransVect
+
+                        # Saving the STEM images in tiff
+                ctags[&#39;STEM Images&#39;] = {}
+                ctags[&#39;Ronchis&#39;] = ronchi.copy()
+
+                for i in range(STEMImages.shape[0]):
+                    ctags[&#39;STEM Images&#39;][str(i+1)] = STEMImages[i]
+
+                ctags[&#39;outimage&#39;] = STEMImages[0]
+                ctags[&#39;image&#39;] = STEMImages[0]
+
+                ctags[&#39;pixel_size&#39;] = ctags[&#39;FieldofView&#39;]/ctags[&#39;ImgPixelsX&#39;]
+
+                self.img.plotImage()
+                saveSTEM(STEMImages, today, PlotSTEM)
+        end = time.time()
+        print ()
+        print (&quot;pySTEM is done with the calculation(s).&quot;)
+        print (&quot;This experiment took:&quot;, end - start,&quot;seconds.&quot;)
+        print (&quot;Thank you for using pySTEM.  Have a wonderful day!&quot;)
+        print
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">MSE672: Introduction to TEM</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Course Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Diffraction/index.html">Diffraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Imaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Spectroscopy/index.html">Spectroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Instrument/index.html">Instrument</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Lab_Course/index.html">Lab Course</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Gerd Duscher.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/Imaging/CH3-Linear-Image-Approximation.ipynb.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

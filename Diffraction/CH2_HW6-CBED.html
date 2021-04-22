@@ -1,0 +1,585 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HW6: Simulating CBED Pattern &#8212; MSE672: Introduction to TEM Spring 2021 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<p><strong>Chapter 2:</strong><a class="reference external" href="CH2_00-Diffraction.ipynb">Diffraction</a></p>
+<hr style="height:1px;border-top:4px solid #FF8200" /><div class="section" id="HW6:-Simulating-CBED-Pattern">
+<h1>HW6: Simulating CBED Pattern<a class="headerlink" href="#HW6:-Simulating-CBED-Pattern" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://raw.githubusercontent.com/gduscher/MSE672-Introduction-to-TEM//main/Diffraction/CH2_HW6-CBED.ipynb">Download</a></p>
+<p><a class="reference external" href="https://colab.research.google.com/github/gduscher/MSE672-Introduction-to-TEM/blob/main/Diffraction/CH2_HW6-CBED.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<p>part of</p>
+<p><a class="reference internal" href="../_MSE672_Intro_TEM.html"><span class="doc">MSE672: Introduction to Transmission Electron Microscopy</span></a></p>
+<p>by Gerd Duscher, Spring 2021</p>
+<p>Microscopy Facilities Joint Institute of Advanced Materials Materials Science &amp; Engineering The University of Tennessee, Knoxville</p>
+<p>Background and methods to analysis and quantification of data acquired with transmission electron microscopes</p>
+<div class="section" id="Homework-Assignment">
+<h2>Homework Assignment<a class="headerlink" href="#Homework-Assignment" title="Permalink to this headline">¶</a></h2>
+<p>Simulate the silicon [001] CBED diffraction pattern from Homework 5 (use the one with the higher camera length.</p>
+<p>That homweork is best done on Google colab. &gt; &gt;Please note that you will have to activate the <code class="docutils literal notranslate"><span class="pre">GPU</span></code> under the Menu <code class="docutils literal notranslate"><span class="pre">Runtime</span></code> select <code class="docutils literal notranslate"><span class="pre">Change</span> <span class="pre">runtime</span> <span class="pre">type</span></code> &gt;</p>
+<p>Questions:</p>
+<ol class="arabic simple">
+<li><p>Set the convergence angle to the value you derived at in Homework 5 (please note, here it has to be in mrad not 1/nm))</p></li>
+<li><p>What thickness did you arrive at?</p></li>
+<li><p>How can you change the intensity in the middle of the zero disk?</p></li>
+<li><p>How is that related with the intensity in the center of the [220] disks?</p></li>
+</ol>
+</div>
+<div class="section" id="Load-relevant-python-packages">
+<h2>Load relevant python packages<a class="headerlink" href="#Load-relevant-python-packages" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Check-Installed-Packages">
+<h3>Check Installed Packages<a class="headerlink" href="#Check-Installed-Packages" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>import sys
+from pkg_resources import get_distribution, DistributionNotFound
+
+def test_package(package_name):
+    &quot;&quot;&quot;Test if package exists and returns version or -1&quot;&quot;&quot;
+    try:
+        version = get_distribution(package_name).version
+    except (DistributionNotFound, ImportError) as err:
+        version = &#39;-1&#39;
+    return version
+
+# Colab setup ------------------
+if &#39;google.colab&#39; in sys.modules:
+    !pip install ase
+    !pip install abtem -q
+# pyTEMlib setup ------------------
+else:
+    if test_package(&#39;abtem&#39;) &lt; &#39;1.0.0b17&#39;:
+        print(&#39;installing abtem&#39;)
+        !{sys.executable} -m pip install  --upgrade abtem -q
+# ------------------------------
+print(&#39;done&#39;)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+done
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Import-numerical-and-plotting-python-packages">
+<h3>Import numerical and plotting python packages<a class="headerlink" href="#Import-numerical-and-plotting-python-packages" title="Permalink to this headline">¶</a></h3>
+<p>This notebook: only requires: * matplotlib: for plotting * numpy for numerical arrays * ase: for the structure * abtem: for the multislice calculation</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>import sys
+if &#39;google.colab&#39; in sys.modules:
+    %pylab --no-import-all inline
+else:
+    %pylab --no-import-all notebook
+
+# import atomic simulation environment
+import ase
+import ase.build
+import ase.visualize
+
+# import abitio-tem library
+import abtem
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Populating the interactive namespace from numpy and matplotlib
+</pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="Let’s-Make-a-Structure">
+<h2>Let’s Make a Structure<a class="headerlink" href="#Let’s-Make-a-Structure" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>Here we make Si in the [001] direction</p>
+</div></blockquote>
+<p>Change the input here</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span># ------------ Input ----------
+thickness = 220. #  in nm
+number_of_layers = 4  # per unit cell
+#------------------------------
+
+atoms = ase.build.bulk(&#39;Si&#39;, &#39;diamond&#39;, cubic=True)
+lattice_parameter = atoms.cell[2,2]
+layers = int(thickness / lattice_parameter *10)
+atoms *= (32, 32, layers)
+
+atoms.center()
+</pre></div>
+</div>
+</div>
+<div class="section" id="Make-the-potential">
+<h3>Make the potential<a class="headerlink" href="#Make-the-potential" title="Permalink to this headline">¶</a></h3>
+<p>We are using the frozen phonon approximation to make a varied potential.</p>
+<p>Sigma is the averge deviation of positions from the symmetric sites (in Angstrom). Please do not change that value.</p>
+<p>Please note that I am using 1024 by 1024 pixels (set by the gpts variable)</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>sigma = 0.1256
+frozen_phonons = abtem.FrozenPhonons(atoms, 12, {&#39;Si&#39;: sigma}, seed=13, directions=&#39;xyz&#39;)
+
+einstein_potential = abtem.Potential(frozen_phonons, gpts=1024,
+                                     slice_thickness=lattice_parameter/number_of_layers,
+                                     projection=&#39;infinite&#39;, parametrization=&#39;kirkland&#39;,
+                                     precalculate=False)
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="Definition-of-electron-probe">
+<h2>Definition of electron probe<a class="headerlink" href="#Definition-of-electron-probe" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span># -------- Input --------
+convergence_angle = 5  # in mrad
+device = &#39;gpu&#39;
+# -----------------------
+
+probe = abtem.Probe(energy=200e3, semiangle_cutoff=convergence_angle,  device=device)
+probe.grid.match(einstein_potential)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Definition-of-detector">
+<h2>Definition of detector<a class="headerlink" href="#Definition-of-detector" title="Permalink to this headline">¶</a></h2>
+<p>We use a CCD camera equivalent with lots of pixels</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>detector = abtem.PixelatedDetector(max_angle=&#39;limit&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Multislice-calculation">
+<h2>Multislice calculation<a class="headerlink" href="#Multislice-calculation" title="Permalink to this headline">¶</a></h2>
+<p>If you get an error, then you have to either set the <code class="docutils literal notranslate"><span class="pre">device</span></code> variable in the code cell before last to <code class="docutils literal notranslate"><span class="pre">'cpu'</span></code> or you set the runtime of google colab to ‘gpu’ (under Menu point: Runtime - Change runtime type)</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>measurement = probe.build().multislice(einstein_potential, pbar=True, detector=detector)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Output">
+<h2>Output<a class="headerlink" href="#Output" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>measurement.show(power=0.4)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Repeat">
+<h2>Repeat<a class="headerlink" href="#Repeat" title="Permalink to this headline">¶</a></h2>
+<p>Repeat with different thickness till you get the right pattern in the zero disk of the CBED pattern of homework 5 (return to the structure code cell)</p>
+</div>
+<div class="section" id="Save-the-calculation">
+<h2>Save the calculation<a class="headerlink" href="#Save-the-calculation" title="Permalink to this headline">¶</a></h2>
+<p>We save the numpy array, you can download this file in google colab from the file menu on the left.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>with open(&#39;Si011-slice0_1.npy&#39;, &#39;wb&#39;) as f:
+    np.save(f, measurement.array[0])
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">MSE672: Introduction to TEM</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Course Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../Introduction/index.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Diffraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Imaging/index.html">Imaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Spectroscopy/index.html">Spectroscopy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Instrument/index.html">Instrument</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Lab_Course/index.html">Lab Course</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Gerd Duscher.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.4</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/Diffraction/CH2_HW6-CBED.ipynb.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
